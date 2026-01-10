@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, Mail, Lock, Eye, EyeOff, User } from "lucide-react";
+import { ArrowLeft, Mail, Lock, Eye, EyeOff, User, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +21,6 @@ const Auth: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Store role in localStorage for demo
     localStorage.setItem("faithconnect_role", role);
     localStorage.setItem("faithconnect_user", JSON.stringify({
       name: formData.name || "Demo User",
@@ -44,9 +43,9 @@ const Auth: React.FC = () => {
       <div className="flex items-center gap-4 p-4 border-b border-border">
         <button 
           onClick={() => navigate("/")}
-          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
+          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-secondary"
         >
-          <ArrowLeft size={24} />
+          <ArrowLeft size={22} />
         </button>
         <h1 className="font-semibold text-lg">
           {isLogin ? "Welcome Back" : "Create Account"}
@@ -60,11 +59,11 @@ const Auth: React.FC = () => {
         </div>
         
         {/* Role Badge */}
-        <div className="flex justify-center mb-6">
-          <span className={`px-4 py-2 rounded-full text-sm font-medium ${
+        <div className="flex justify-center mb-8">
+          <span className={`px-5 py-2 rounded-full text-sm font-medium ${
             isLeader 
-              ? "bg-accent/10 text-accent" 
-              : "bg-primary/10 text-primary"
+              ? "bg-accent/15 text-accent border border-accent/30" 
+              : "bg-primary/10 text-foreground border border-border"
           }`}>
             {isLeader ? "Religious Leader" : "Worshiper"}
           </span>
@@ -73,15 +72,15 @@ const Auth: React.FC = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           {!isLogin && (
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+            <div className="space-y-2 animate-fade-in">
+              <Label htmlFor="name" className="text-sm font-medium">Full Name</Label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
                 <Input
                   id="name"
                   type="text"
                   placeholder="Enter your name"
-                  className="pl-10"
+                  className="pl-11 h-12 rounded-xl bg-secondary border-0"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
@@ -90,14 +89,14 @@ const Auth: React.FC = () => {
           )}
           
           <div className="space-y-2">
-            <Label htmlFor="email">Email Address</Label>
+            <Label htmlFor="email" className="text-sm font-medium">Email Address</Label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
               <Input
                 id="email"
                 type="email"
                 placeholder="Enter your email"
-                className="pl-10"
+                className="pl-11 h-12 rounded-xl bg-secondary border-0"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
@@ -106,30 +105,31 @@ const Auth: React.FC = () => {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-sm font-medium">Password</Label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className="pl-10 pr-10"
+                className="pl-11 pr-12 h-12 rounded-xl bg-secondary border-0"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
               />
               <button
                 type="button"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
           
-          <Button type="submit" variant="hero" className="w-full mt-6">
+          <Button type="submit" variant="hero" className="w-full mt-8 group">
             {isLogin ? "Sign In" : "Create Account"}
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </Button>
         </form>
         
@@ -138,7 +138,7 @@ const Auth: React.FC = () => {
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <button
             type="button"
-            className="text-primary font-semibold hover:underline"
+            className="text-accent font-semibold hover:underline"
             onClick={() => setIsLogin(!isLogin)}
           >
             {isLogin ? "Sign Up" : "Sign In"}
@@ -146,14 +146,14 @@ const Auth: React.FC = () => {
         </p>
         
         {/* Divider */}
-        <div className="flex items-center gap-4 my-6">
+        <div className="flex items-center gap-4 my-8">
           <div className="flex-1 h-px bg-border" />
-          <span className="text-xs text-muted-foreground">OR</span>
+          <span className="text-xs text-muted-foreground uppercase tracking-wider">or continue with</span>
           <div className="flex-1 h-px bg-border" />
         </div>
         
         {/* Social Login */}
-        <Button variant="outline" className="w-full gap-2">
+        <Button variant="outline" className="w-full gap-3 h-12 rounded-xl">
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path
               fill="currentColor"
