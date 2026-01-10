@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, CheckCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
@@ -49,13 +49,13 @@ export const LeaderCard: React.FC<LeaderCardProps> = ({
 
   return (
     <div 
-      className="bg-card rounded-xl p-4 shadow-card hover:shadow-elevated transition-all duration-300 cursor-pointer animate-fade-in"
+      className="bg-card rounded-2xl p-5 shadow-card hover:shadow-elevated transition-all duration-300 cursor-pointer hover:-translate-y-1 border border-border/50"
       onClick={() => onClick?.(leader.id)}
     >
       <div className="flex items-start gap-4">
-        <Avatar className="w-14 h-14 ring-2 ring-primary/20">
+        <Avatar className="w-14 h-14 ring-2 ring-border">
           <AvatarImage src={leader.avatar} alt={leader.name} />
-          <AvatarFallback className="bg-primary/10 text-primary font-semibold text-lg">
+          <AvatarFallback className="bg-secondary text-foreground font-semibold text-lg">
             {leader.name.split(' ').map(n => n[0]).join('')}
           </AvatarFallback>
         </Avatar>
@@ -63,21 +63,26 @@ export const LeaderCard: React.FC<LeaderCardProps> = ({
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <h3 className="font-semibold text-foreground truncate">{leader.name}</h3>
+              <div className="flex items-center gap-1.5">
+                <h3 className="font-semibold text-foreground truncate">{leader.name}</h3>
+                {isFollowing && (
+                  <CheckCircle size={14} className="text-accent flex-shrink-0" />
+                )}
+              </div>
               <p className="text-xs text-muted-foreground">{leader.faith}</p>
             </div>
-            <span className="text-xs text-muted-foreground whitespace-nowrap">
+            <span className="text-xs text-muted-foreground whitespace-nowrap bg-secondary px-2 py-1 rounded-full">
               {formatFollowers(followers)} followers
             </span>
           </div>
           
-          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+          <p className="text-sm text-muted-foreground mt-2 line-clamp-2 leading-relaxed">
             {leader.bio}
           </p>
           
-          <div className="flex items-center gap-2 mt-3">
+          <div className="flex items-center gap-2 mt-4">
             <Button
-              variant={isFollowing ? "secondary" : "default"}
+              variant={isFollowing ? "secondary" : "gold"}
               size="sm"
               onClick={handleFollow}
               className="flex-1"
