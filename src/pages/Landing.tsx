@@ -9,7 +9,7 @@ const Landing: React.FC = () => {
   return (
     <div className="mobile-container flex flex-col items-center justify-center min-h-screen px-6 py-12 bg-background">
       {/* Background subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+      <div className="absolute inset-0 gradient-subtle pointer-events-none" />
       
       <div className="relative z-10 flex flex-col items-center text-center max-w-sm animate-fade-in">
         {/* Logo */}

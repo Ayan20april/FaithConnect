@@ -7,10 +7,10 @@ interface FaithConnectLogoProps {
 }
 
 const sizeClasses = {
-  sm: "w-8 h-8",
-  md: "w-12 h-12",
-  lg: "w-16 h-16",
-  xl: "w-24 h-24",
+  sm: "w-10 h-10",
+  md: "w-14 h-14",
+  lg: "w-20 h-20",
+  xl: "w-28 h-28",
 };
 
 const textSizeClasses = {
@@ -26,51 +26,71 @@ export const FaithConnectLogo: React.FC<FaithConnectLogoProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`flex flex-col items-center gap-3 ${className}`}>
-      {/* Logo SVG - Chain Link representing connection */}
+    <div className={`flex flex-col items-center gap-4 ${className}`}>
+      {/* Logo - Abstract hands/connection forming a radiant symbol */}
       <svg
         className={sizeClasses[size]}
-        viewBox="0 0 80 40"
+        viewBox="0 0 64 64"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#9B59B6" />
-            <stop offset="50%" stopColor="#E74C8C" />
-            <stop offset="100%" stopColor="#F39C12" />
+          <linearGradient id="tealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#0D4F5C" />
+            <stop offset="50%" stopColor="#1A6B70" />
+            <stop offset="100%" stopColor="#F5A623" />
+          </linearGradient>
+          <linearGradient id="amberGlow" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#0D4F5C" />
+            <stop offset="100%" stopColor="#F5A623" />
           </linearGradient>
         </defs>
-        {/* Left chain link */}
+        
+        {/* Outer ring - represents community/unity */}
+        <circle 
+          cx="32" 
+          cy="32" 
+          r="28" 
+          stroke="url(#tealGradient)" 
+          strokeWidth="2.5"
+          fill="none"
+          opacity="0.3"
+        />
+        
+        {/* Inner sacred geometry - two overlapping curves forming connection */}
         <path
-          d="M28 20C28 28.284 21.284 35 13 35C8.582 35 5 31.418 5 27C5 22.582 8.582 19 13 19H22C26.418 19 30 15.418 30 11C30 6.582 26.418 3 22 3H13C4.716 3 -2 9.716 -2 18C-2 26.284 4.716 33 13 33"
-          stroke="url(#logoGradient)"
-          strokeWidth="5"
+          d="M20 32C20 24 26 18 32 18C38 18 44 24 44 32"
+          stroke="url(#tealGradient)"
+          strokeWidth="3"
           strokeLinecap="round"
           fill="none"
         />
-        {/* Right chain link */}
         <path
-          d="M52 20C52 11.716 58.716 5 67 5C71.418 5 75 8.582 75 13C75 17.418 71.418 21 67 21H58C53.582 21 50 24.582 50 29C50 33.418 53.582 37 58 37H67C75.284 37 82 30.284 82 22C82 13.716 75.284 7 67 7"
-          stroke="url(#logoGradient)"
-          strokeWidth="5"
+          d="M44 32C44 40 38 46 32 46C26 46 20 40 20 32"
+          stroke="url(#amberGlow)"
+          strokeWidth="3"
           strokeLinecap="round"
           fill="none"
         />
-        {/* Center connection point with cross/plus */}
-        <circle cx="40" cy="20" r="8" fill="url(#logoGradient)" />
-        <path
-          d="M40 15V25M35 20H45"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
+        
+        {/* Central connection point - radiant star */}
+        <circle cx="32" cy="32" r="6" fill="url(#tealGradient)" />
+        <circle cx="32" cy="32" r="3" fill="#F5A623" />
+        
+        {/* Small accent dots representing light/guidance */}
+        <circle cx="32" cy="14" r="2" fill="#F5A623" opacity="0.8" />
+        <circle cx="32" cy="50" r="2" fill="#0D4F5C" opacity="0.8" />
+        <circle cx="14" cy="32" r="2" fill="#1A6B70" opacity="0.6" />
+        <circle cx="50" cy="32" r="2" fill="#1A6B70" opacity="0.6" />
       </svg>
       
       {showText && (
-        <h1 className={`font-bold gradient-brand-text ${textSizeClasses[size]}`}>
-          FaithConnect
-        </h1>
+        <div className="text-center">
+          <h1 className={`font-bold tracking-tight ${textSizeClasses[size]}`}>
+            <span className="text-primary">Faith</span>
+            <span className="text-accent">Connect</span>
+          </h1>
+        </div>
       )}
     </div>
   );
